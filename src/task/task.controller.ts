@@ -54,7 +54,7 @@ export class TaskController {
     return this.taskService.create(createTaskDto);
   }
 
-  @Roles(Role.Admin)
+  @Roles(Role.User)
   @Get()
   findAll() {
     return this.taskService.findAll();
@@ -66,6 +66,7 @@ export class TaskController {
     return this.taskService.findOne(+id);
   }
 
+  @Roles(Role.User)
   @Put(':id')
   @UseInterceptors(FileInterceptor('image', multerConfig))
   async update(
@@ -81,6 +82,7 @@ export class TaskController {
     return this.taskService.update(+id, updateTaskDto);
   }
 
+  @Roles(Role.User)
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<void> {
     const task = await this.taskService.findOne(+id);
